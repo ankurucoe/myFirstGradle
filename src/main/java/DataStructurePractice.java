@@ -89,15 +89,35 @@ public class DataStructurePractice {
         }
     }
 
+    public void findIntersectionPoint(int [] arr, int [] arr1, int n, int m){
+        int i=0, j=0;
+        while(i<n && j<m){
+            if(i>0 && arr[i]==arr[i-1]){
+                i++;
+                continue;
+            }
+            if(arr[i]<arr1[j]){
+                i++;
+            }
+            else if(arr[i]>arr1[j]){
+                j++;
+            }
+            else{
+                System.out.print(arr[i]+" ");
+                i++;
+                j++;
+            }
+        }
+    }
+
 
     public static void main(String [] args){
-        int [] arr = {1, 4, 4, 1, 0, 1};
+        int [] arr = {3, 5, 10 , 10, 10, 15, 15, 20};
+        int [] arr1 = {5, 10 , 10, 15, 30};
         //System.out.println(new DataStructurePractice().partition(arr, arr.length-1, 0));
         //new DataStructurePractice().quickSort(arr, arr.length-1, 0);
         int n = arr.length;
-        new DataStructurePractice().countSort(arr, arr.length, 5);
-        for(int i : arr){
-            System.out.print(i+" ");
-        }
+        int m = arr1.length;
+        new DataStructurePractice().findIntersectionPoint(arr, arr1, n, m);
     }
 }
