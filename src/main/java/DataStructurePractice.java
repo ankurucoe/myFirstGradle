@@ -109,15 +109,50 @@ public class DataStructurePractice {
             }
         }
     }
-
+    public int countInversions(int [] arr, int l, int m, int r){
+        int n1 = m-l+1, n2 = r-m;
+        int [] a1 = new int[n1];
+        int [] a2 = new int[n2];
+        for(int i=0;i<n1;i++){ a1[i] = arr[l+i];}
+        for(int j=0;j<n2;j++){ a2[j] = arr[m+j+1];}
+        int res=0,i=0,j=0,k=l;
+        while(i<n1 && j<n2)
+        {
+            if(a1[i]<=a2[j]){
+                arr[k] = a1[i];
+                i++;
+            }
+            else{
+                arr[k] = a2[j];
+                j++;
+                res = res + n1-i;
+            }
+            k++;
+        }
+        while(i<n1){
+            arr[k] = a1[i];
+            i++;
+            k++;
+        }
+        while(j<n2){
+            arr[k] = a2[j];
+            j++;
+            k++;
+        }
+        return res;
+    }
 
     public static void main(String [] args){
         int [] arr = {3, 5, 10 , 10, 10, 15, 15, 20};
         int [] arr1 = {5, 10 , 10, 15, 30};
+        int [] arry = {2, 5, 8, 11, 3, 6, 9, 13};
         //System.out.println(new DataStructurePractice().partition(arr, arr.length-1, 0));
         //new DataStructurePractice().quickSort(arr, arr.length-1, 0);
         int n = arr.length;
         int m = arr1.length;
-        new DataStructurePractice().findIntersectionPoint(arr, arr1, n, m);
+        //new DataStructurePractice().findIntersectionPoint(arr, arr1, n, m);
+        int ln = arry.length;
+        int mid = (0+(ln-1))/2;
+        System.out.println(new DataStructurePractice().countInversions(arry, 0, mid, arry.length-1));
     }
 }
