@@ -141,6 +141,19 @@ public class DataStructurePractice {
         }
         return res;
     }
+    //Lamuto Partition
+    public int part(int [] arr, int l, int r){
+        int pivot = arr[r]; // pivot last element
+        int i = l-1;
+        for(int j = i; j<l ; j++){
+            if(arr[j]<=pivot){
+                i++;
+                swap(arr, i , j);
+            }
+        }
+        swap(arr, i+1, r);
+        return i+1;
+    }
 
     public static void main(String [] args){
         int [] arr = {3, 5, 10 , 10, 10, 15, 15, 20};
