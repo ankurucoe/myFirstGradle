@@ -154,6 +154,24 @@ public class DataStructurePractice {
         swap(arr, i+1, r);
         return i+1;
     }
+    public int hoarsPart(int [] arr, int l, int h){
+        int pivot = arr[l];
+        int i = l-1, j=h+1;
+        while(true){
+            do{
+                i++;
+            }
+            while(arr[i] < pivot);
+            do{
+                j--;
+            }
+            while(arr[j] > pivot);
+            if(i >= j) {
+                return j;
+            }
+            swap(arr, i, j);
+        }
+    }
 
     public static void main(String [] args){
         int [] arr = {3, 5, 10 , 10, 10, 15, 15, 20};
@@ -167,5 +185,6 @@ public class DataStructurePractice {
         int ln = arry.length;
         int mid = (0+(ln-1))/2;
         System.out.println(new DataStructurePractice().countInversions(arry, 0, mid, arry.length-1));
+
     }
 }
