@@ -87,7 +87,7 @@ public class DataStructuresImplementations extends DataStructurePractice{
 
         }
     }
-
+    // Function for counting sort in an array
     public void countingSort(int [] arr, int n, int k){
         int [] count = new int [k];
         for(int i=0;i<k;i++){
@@ -121,7 +121,5 @@ public class DataStructuresImplementations extends DataStructurePractice{
         for(int k:arr){
             System.out.print(k+" ");
         }
-
-
     }
 }
