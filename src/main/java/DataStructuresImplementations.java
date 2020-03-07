@@ -88,6 +88,27 @@ public class DataStructuresImplementations extends DataStructurePractice{
         }
     }
 
+    public void countingSort(int [] arr, int n, int k){
+        int [] count = new int [k];
+        for(int i=0;i<k;i++){
+            count[i] = 0;
+        }
+        for(int i=0;i<n;i++){
+            count[arr[i]]++;
+        }
+        for(int i=1;i<k;i++){
+            count[i] = count[i-1] + count[i];
+        }
+        int [] output = new int[n];
+        for(int i=n-1;i>=0;i--){
+            output[count[arr[i]]-1] = arr[i];
+            count[arr[i]]--;
+        }
+        for(int i=0;i<n;i++){
+            arr[i] = output[i];
+        }
+
+    }
     public static void main(String[] args) {
 //            Interval [] arr = new Interval[4];
 //            arr[0] = new Interval(6,8);
@@ -96,7 +117,11 @@ public class DataStructuresImplementations extends DataStructurePractice{
 //            arr[3] = new Interval(4,7);
 //            new DataStructuresImplementations().mergeIntervals(arr);
         int [] arr = {7, 5, 3, 1, 2, 4, 6, 8};
-        new DataStructuresImplementations().circularSort(arr, arr.length);
+        new DataStructuresImplementations().countingSort(arr, arr.length,9);
+        for(int k:arr){
+            System.out.print(k+" ");
+        }
+
 
     }
 }
