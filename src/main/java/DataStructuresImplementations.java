@@ -51,13 +51,52 @@ public class DataStructuresImplementations extends DataStructurePractice{
             System.out.print(arr[j].start+" "+arr[j].end);
         }
     }
+    public boolean circularSortHelper(int [] arr, int lo, int hi){
+        boolean swapped = false;
+        if(lo==hi){
+            return false;
+        }
+        int l = lo, h = hi;
+        while(lo<hi){
+            if(arr[lo] > arr[hi]){
+                swap(arr, lo, hi);
+                swapped = true;
+            }
+            lo++;
+            hi--;
+        }
+        if (lo == hi){
+            if(arr[lo] > arr[hi+1]){
+                swap(arr, lo, hi+1);
+                swapped = true;
+            }
+        }
+        int mid = (hi-lo)/2;
+        boolean firstHalf = circularSortHelper(arr, lo, lo+mid);
+        boolean secondHalf = circularSortHelper(arr, lo+mid+1, hi);
+
+        return swapped || firstHalf || secondHalf;
+    }
+
+    public void circularSort(int [] arr, int n){
+        if (n > 0){
+            do{
+                System.out.println(Arrays.toString(arr));
+            }
+            while(circularSortHelper(arr, 0, n-1) != false);
+
+        }
+    }
 
     public static void main(String[] args) {
-            Interval [] arr = new Interval[4];
-            arr[0] = new Interval(6,8);
-            arr[1] = new Interval(1,9);
-            arr[2] = new Interval(2,4);
-            arr[3] = new Interval(4,7);
-            new DataStructuresImplementations().mergeIntervals(arr);
+//            Interval [] arr = new Interval[4];
+//            arr[0] = new Interval(6,8);
+//            arr[1] = new Interval(1,9);
+//            arr[2] = new Interval(2,4);
+//            arr[3] = new Interval(4,7);
+//            new DataStructuresImplementations().mergeIntervals(arr);
+        int [] arr = {7, 5, 3, 1, 2, 4, 6, 8};
+        new DataStructuresImplementations().circularSort(arr, arr.length);
+
     }
 }
