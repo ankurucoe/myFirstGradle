@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -107,7 +108,22 @@ public class DataStructuresImplementations extends DataStructurePractice{
         for(int i=0;i<n;i++){
             arr[i] = output[i];
         }
+    }
+    public String convert(String inp){
+        String name;
+        int age;
+        float hight;
+        boolean married;
+        //String [] input = new String[4];
+        String [] input = inp.split(" ",4);
+        name = input[0];
+//        for(String k:input){ System.out.print(k+" ");
+//        }
+        age = Integer.parseInt(input[1]);
+        hight = Float.parseFloat(input[2]);
+        married = Boolean.parseBoolean(input[3]);
 
+        return name+" is "+age+" years old and "+hight+"ft tall and is "+married;
     }
     public static void main(String[] args) {
 //            Interval [] arr = new Interval[4];
@@ -116,10 +132,12 @@ public class DataStructuresImplementations extends DataStructurePractice{
 //            arr[2] = new Interval(2,4);
 //            arr[3] = new Interval(4,7);
 //            new DataStructuresImplementations().mergeIntervals(arr);
-        int [] arr = {7, 5, 3, 1, 2, 4, 6, 8};
-        new DataStructuresImplementations().countingSort(arr, arr.length,9);
-        for(int k:arr){
-            System.out.print(k+" ");
-        }
+//        int [] arr = {7, 5, 3, 1, 2, 4, 6, 8};
+//        new DataStructuresImplementations().countingSort(arr, arr.length,9);
+//        for(int k:arr){
+//            System.out.print(k+" ");
+//        }
+
+
     }
 }
