@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -125,6 +126,12 @@ public class DataStructuresImplementations extends DataStructurePractice{
 
         return name+" is "+age+" years old and "+hight+"ft tall and is "+married;
     }
+    public int josephus(int n, int k){
+        if(n==1){
+            return 0;
+        }
+        return (josephus(n-1,k)+k)%n;
+    }
     public static void main(String[] args) {
 //            Interval [] arr = new Interval[4];
 //            arr[0] = new Interval(6,8);
@@ -137,7 +144,6 @@ public class DataStructuresImplementations extends DataStructurePractice{
 //        for(int k:arr){
 //            System.out.print(k+" ");
 //        }
-
-
+          System.out.println(new DataStructuresImplementations().josephus(7,3));
     }
 }
