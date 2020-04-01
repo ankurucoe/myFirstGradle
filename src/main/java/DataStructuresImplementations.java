@@ -132,18 +132,142 @@ public class DataStructuresImplementations extends DataStructurePractice{
         }
         return (josephus(n-1,k)+k)%n;
     }
+    public int slidingWindowAvg(int [] arr, int n, int k){
+        int maxSum = 0;
+        for(int i=0;i<n-k+1;i++){
+            int sum = 0;
+            for(int j=i;j<i+k;j++){
+                sum = sum + arr[j];
+            }
+//            if(sum > maxSum){
+//                maxSum = sum;
+//            }
+            System.out.println(sum);
+        }
+        return maxSum;
+    }
+
+    static int fibs(int n,int a, int b)
+    {
+        if (n == a)
+            return a;
+        else if(n == b)
+            return b;
+        return fibs(n - 1, a, b) + fibs(n - 2, a, b);
+    }
+
+    static int fibo(int aa, int bb, int n)
+    {
+        int mod = (int)1e9+7;
+        int a = aa, b = bb, c;
+        if (n < 1)
+            return a;
+        else if(n == 1)
+            return a+b;
+        else {
+            for (int i = 0; i <n-1; i++) {
+                c = (a % mod + b % mod) % mod;
+                a = b % mod;
+                b = c % mod;
+            }
+        }
+        return b;
+    }
+
+    static int fib(int n)
+    {
+        /* Declare an array to store Fibonacci numbers. */
+        int f[] = new int[n + 1];
+        int i;
+
+        /* 0th and 1st number of the series are 0 and 1*/
+        f[0] = 0;
+
+        if (n > 0) {
+            f[1] = 1;
+
+            for (i = 2; i <= n; i++) {
+                /* Add the previous 2 numbers in the series
+             and store it */
+                f[i] = f[i - 1] + f[i - 2];
+            }
+        }
+
+        return f[n];
+    }
+
+    public static int findArray(int [] arr, int n, int s){
+
+        int start = -1;
+        int end = -1;
+        int min = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+
+            int cSum = 0;
+            for(int j=i;j<n && (j-i+1)<min;j++){
+                    cSum = cSum+ arr[j];
+                    if(cSum == s){
+                        start = i;
+                        end = j;
+                        min = end - start + 1;
+                        break;
+                    }
+            }
+        }
+        return min;
+    }
+
+    public static int check(int [] arr, int k){
+        int count = 0;
+        int s = -1;
+        int e = -1;
+
+        for(int i=0;i<arr.length;i++){
+            int c = 0;
+            for(int j=i;j<arr.length && j-i+1>count;j++){
+                if(arr[j]==1){
+                    s = i;
+                    e = j;
+                    c = e-s+1;
+                    break;
+                }
+                else{
+                    //break;
+                }
+            }
+            count = Math.max(count,c);
+
+        }
+        System.out.println(s+" "+e);
+        return count;
+    }
+    public static int longestOnes(int[] A, int K) {
+        int length = A.length;
+        int max = 0;
+        Queue<Integer> queue = new LinkedList<>();
+        int count = 0;
+        int mainCount = 0;
+        for (int i = 0; i < length; i ++) {
+            if (K == 0 && !queue.isEmpty() && A[i] == 0) {
+                K ++;
+                count = mainCount - (queue.poll() + 1);
+            }
+            if (K == 0 && A[i] == 0) {
+                count = 0;
+                continue;
+            }
+            if (A[i] == 0) {
+                queue.add(i);
+                K --;
+            }
+            count += 1;
+            max = Math.max(max, count);
+            mainCount ++;
+        }
+        return max;
+    }
     public static void main(String[] args) {
-//            Interval [] arr = new Interval[4];
-//            arr[0] = new Interval(6,8);
-//            arr[1] = new Interval(1,9);
-//            arr[2] = new Interval(2,4);
-//            arr[3] = new Interval(4,7);
-//            new DataStructuresImplementations().mergeIntervals(arr);
-//        int [] arr = {7, 5, 3, 1, 2, 4, 6, 8};
-//        new DataStructuresImplementations().countingSort(arr, arr.length,9);
-//        for(int k:arr){
-//            System.out.print(k+" ");
-//        }
-          System.out.println(new DataStructuresImplementations().josephus(7,3));
+        int arr [] = {1,1,1,0,0,0,1,1,1,1,0};
+        System.out.println(longestOnes(arr,2));
     }
 }
