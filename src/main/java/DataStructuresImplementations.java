@@ -343,7 +343,20 @@ public class DataStructuresImplementations extends DataStructurePractice{
     }
     public static void main(String[] args) {
         int arr [] = {1,5,5,11};
+        Set <Integer> s = new TreeSet<>();
+        PriorityQueue <Integer> pq = new PriorityQueue<>();
+        pq.add(10);
+        pq.add(12);
+        pq.add(110);
+        pq.add(1);
+        int i = 0;
+        while(i<2){
+            System.out.print(pq.poll()+" ");
+            i++;
+        }
+        System.out.println(pq);
+        Iterator itr = pq.iterator();
 
-        System.out.println(ways(20));
+        //System.out.println(ways(20));
     }
 }
