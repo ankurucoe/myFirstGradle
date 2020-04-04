@@ -266,8 +266,84 @@ public class DataStructuresImplementations extends DataStructurePractice{
         }
         return max;
     }
+    public static int turbulant(int [] arr){
+        int n = arr.length;
+        int sign = 1;
+        int pre = 0;
+        for(int i=0;i<n;i++){
+        }
+        return 0;
+    }
+
+    public static boolean equalSubset(int [] arr){
+        int sum = 0;
+        int act = 0;
+        int exp = 0;
+        for(int k:arr){
+            sum += k;
+        }
+        exp = sum/2;
+        Set<Integer> s = new HashSet<>();
+        for(int i=0;i<arr.length;i++){
+            s.add(i);
+            for(int j=0;j<arr.length;j++){
+                if(j!=i && act<exp){
+                    s.add(j);
+                    act += arr[j];
+                }
+            }
+            if(act == exp){
+                break;
+            }
+        }
+        System.out.println(act);
+        int act1 = 0;
+        if(act==exp){
+            for(int m =0;m<arr.length;m++){
+                if(!s.contains(m)){
+                    act1 += arr[m];
+                }
+            }
+        }
+        System.out.println(act1);
+        if(act1==act){
+            return true;
+        }
+        return false;
+    }
+    static int mod = 1000000007;
+    static int [] dp = new int[30001];
+
+    public static int distributeHearts(int n) {
+        dp[0] = 1;
+        if (dp[n] != 0) {
+            return dp[n];
+        } else {
+            for (int i = 1; i < n + 1; i++) {
+                for (int j = i; j < n + 1; j++) {
+                    dp[j] = (dp[j] % mod + dp[j - i] % mod) % mod;
+                }
+            }
+
+        }
+        return dp[n] - 1;
+    }
+
+    public static int ways(int n){
+        int [] dp = new int [501];
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 3;
+        dp[4] = 5;
+        for(int i=5;i<=500;i++){
+            dp[i] = dp[i-1] + dp[i-5];
+        }
+        return dp[n];
+    }
     public static void main(String[] args) {
-        int arr [] = {1,1,1,0,0,0,1,1,1,1,0};
-        System.out.println(longestOnes(arr,2));
+        int arr [] = {1,5,5,11};
+
+        System.out.println(ways(20));
     }
 }
