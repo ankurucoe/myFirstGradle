@@ -336,27 +336,90 @@ public class DataStructuresImplementations extends DataStructurePractice{
         dp[2] = 2;
         dp[3] = 3;
         dp[4] = 5;
-        for(int i=5;i<=500;i++){
+        for(int i=5;i<=5;i++){
             dp[i] = dp[i-1] + dp[i-5];
         }
         return dp[n];
     }
-    public static void main(String[] args) {
-        int arr [] = {1,5,5,11};
-        Set <Integer> s = new TreeSet<>();
-        PriorityQueue <Integer> pq = new PriorityQueue<>();
-        pq.add(10);
-        pq.add(12);
-        pq.add(110);
-        pq.add(1);
-        int i = 0;
-        while(i<2){
-            System.out.print(pq.poll()+" ");
-            i++;
+    public boolean happy(int a){
+        Set<Integer> s = new HashSet<>();
+        int res = -1;
+        while(true){
+            res = 0;
+            while(a>0){
+                res = (int) (res + Math.pow(a%10,2));
+                a = a/10;
+            }
+            if(res == 1){
+                return true;
+            }
+            else if(s.contains(res)){
+                return false;
+            }
+            s.add(res);
+            a=res;
         }
-        System.out.println(pq);
-        Iterator itr = pq.iterator();
 
-        //System.out.println(ways(20));
+    }
+    static int N;
+    void printSolution(int sol[][])
+    {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++)
+                System.out.print(" " + sol[i][j] + " ");
+            System.out.println();
+        }
+    }
+    boolean isSafe(int [][] maze, int x, int y){
+        return (x >= 0 && x < N && y >= 0 && y < N && maze[x][y] == 1);
+    }
+
+    boolean solveMazeUtil(int [][] maze, int x, int y, int [][] sol){
+        if(x == N-1 && y == N-1 && maze[x][y] == 1){
+                sol[x][y] = 1;
+                return true;
+        }
+        if(isSafe(maze,x,y)==true){
+            sol[x][y] = 1;
+            // Checking down
+            if(solveMazeUtil(maze, x+1, y, sol))
+                return true;
+
+            // Checking right
+            if(solveMazeUtil(maze, x, y+1, sol))
+                return true;
+
+            // BackTrack
+            maze[x][y] = 0;
+            return false;
+        }
+        return false;
+    }
+
+    public boolean solveRatMaze(int [][] maze){
+        int [][] sol = new int [N][N];
+
+        if(solveMazeUtil(maze, 0,0,sol)== false){
+            System.out.println("No Solution");
+            return false;
+        }
+        printSolution(sol);
+        return true;
+    }
+
+
+    public static void main(String[] args) {
+
+        int a = 19;
+        //new DataStructuresImplementations().happy(19);
+
+        int maze[][] = { { 1, 0, 0, 0 },
+                         { 1, 1, 0, 1 },
+                         { 0, 1, 0, 0 },
+                         { 1, 1, 1, 1 } };
+        N = maze.length;
+        System.out.println(N);
+        new DataStructuresImplementations().solveRatMaze(maze);
+
     }
 }

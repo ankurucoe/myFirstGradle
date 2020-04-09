@@ -172,19 +172,79 @@ public class DataStructurePractice {
             swap(arr, i, j);
         }
     }
+    static int N;
 
+    /* A utility function to print solution matrix
+    sol[N][N] */
+    void printSolution(int sol[][])
+    {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++)
+                System.out.print(" " + sol[i][j] + " ");
+            System.out.println();
+        }
+    }
+
+
+    boolean isSafe(int maze[][], int x, int y)
+    {
+
+        return (x >= 0 && x < N && y >= 0 && y < N && maze[x][y] == 1);
+    }
+
+    boolean solveMaze(int maze[][])
+    {
+        int sol[][] = new int[N][N];
+
+        if (solveMazeUtil(maze, 0, 0, sol) == false) {
+            System.out.print("Solution doesn't exist");
+            return false;
+        }
+
+        printSolution(sol);
+        return true;
+    }
+
+
+    boolean solveMazeUtil(int maze[][], int x, int y,
+                          int sol[][])
+    {
+        // if (x, y is goal) return true
+        if (x == N - 1 && y == N - 1 && maze[x][y] == 1) {
+            sol[x][y] = 1;
+            return true;
+        }
+
+        // Check if maze[x][y] is valid
+        if (isSafe(maze, x, y) == true) {
+            // mark x, y as part of solution path
+            sol[x][y] = 1;
+
+            /* Move forward in x direction */
+            if (solveMazeUtil(maze, x + 1, y, sol))
+                return true;
+
+			/* If moving in x direction doesn't give
+			solution then Move down in y direction */
+            if (solveMazeUtil(maze, x, y + 1, sol))
+                return true;
+
+			/* If none of the above movements works then
+			BACKTRACK: unmark x, y as part of solution
+			path */
+            sol[x][y] = 0;
+            return false;
+        }
+
+        return false;
+    }
     public static void main(String [] args){
-        int [] arr = {3, 5, 10 , 10, 10, 15, 15, 20};
-        int [] arr1 = {5, 10 , 10, 15, 30};
-        int [] arry = {2, 5, 8, 11, 3, 6, 9, 13};
-        //System.out.println(new DataStructurePractice().partition(arr, arr.length-1, 0));
-        //new DataStructurePractice().quickSort(arr, arr.length-1, 0);
-        int n = arr.length;
-        int m = arr1.length;
-        //new DataStructurePractice().findIntersectionPoint(arr, arr1, n, m);
-        int ln = arry.length;
-        int mid = (0+(ln-1))/2;
-        System.out.println(new DataStructurePractice().countInversions(arry, 0, mid, arry.length-1));
+        int maze[][] = { { 1, 0, 0, 0 },
+                { 1, 1, 0, 1 },
+                { 0, 1, 0, 0 },
+                { 1, 1, 1, 1 } };
+        N = maze.length;
+        new DataStructurePractice().solveMaze(maze);
 
     }
 }
