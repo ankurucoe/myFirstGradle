@@ -1,3 +1,4 @@
+
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.ArrayList;
@@ -406,20 +407,44 @@ public class DataStructuresImplementations extends DataStructurePractice{
         printSolution(sol);
         return true;
     }
+    public void magicNumber(int n){
+        int [][] arr = new int[n][n];
+        int row = 0, col = n/2, i,j, square = n*n;
+        for(int p = 1;p <= square;p ++){
+            arr[row][col] = p;
+            if(p%n == 0){
+                row++;
+            }
+            else {
+                if( row == 0 ) row = n - 1;
+
+                else row--;
+
+                if( col == ( n - 1 ) ) col = 0;
+
+                else col++;
+            }
+        }
+        for(i=0;i<n;i++){
+            for(j=0;j<arr[0].length;j++){
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
 
 
     public static void main(String[] args) {
 
         int a = 19;
-        //new DataStructuresImplementations().happy(19);
 
         int maze[][] = { { 1, 0, 0, 0 },
                          { 1, 1, 0, 1 },
-                         { 0, 1, 0, 0 },
-                         { 1, 1, 1, 1 } };
+                         { 1, 1, 0, 0 },
+                         { 0, 1, 1, 1 } };
         N = maze.length;
-        System.out.println(N);
-        new DataStructuresImplementations().solveRatMaze(maze);
+        //new DataStructuresImplementations().magicNumber(3);
+        //new DataStructuresImplementations().magicNumber(7);
 
     }
 }
