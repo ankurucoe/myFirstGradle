@@ -1,5 +1,6 @@
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.xml.crypto.Data;
+import java.util.Arrays;
 
 public class DataStructurePractice {
     public void swap(int [] arr, int i,int j){
@@ -238,13 +239,86 @@ public class DataStructurePractice {
 
         return false;
     }
+
+    public int lcs(String a, String b, int m, int n){
+        if(m==0 || n==0)
+            return 0;
+        if(a.charAt(m-1)==b.charAt(n-1))
+            return 1+lcs(a,b,m-1, n-1);
+        else
+            return Math.max(lcs(a,b,m-1,n),lcs(a,b,m,n-1));
+    }
+
+    static int [][] dp = new int[100+1][100+1];
+    public static void filldpArray(){
+        for(int i=0;i<dp.length;i++)
+            for(int j=0;j<dp[0].length;j++)
+                dp[i][j] = -1;
+    }
+    //Using Memoization
+    public int lcsdp(String a, String b, int m, int n){
+
+        if(dp[m][n] != -1)
+            return dp[m][n];
+
+        if(m==0 || n==0)
+            dp[m][n] = 0;
+
+        else
+            if(a.charAt(m-1)==b.charAt(n-1))
+                dp[m][n] = 1 + lcs(a,b,m-1,n-1);
+            else
+                dp[m][n] = Math.max(lcs(a,b,m-1,n),lcs(a,b,m,n-1));
+
+
+    return dp[m][n];
+    }
+    // DP Solution
+    public int solve(String A, String B) {
+        int[][] dp = new int[A.length()+1][B.length()+1];
+
+        for(int i=0;i<=A.length();i++){
+            for(int j=0;j<=B.length();j++){
+                if(i==0||j==0){dp[i][j]=0;continue;}
+                if(A.charAt(i-1)==B.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1]+1;
+                }
+                else{
+                    dp[i][j] = Math.max(dp[i][j-1],Math.max(dp[i-1][j],dp[i-1][j-1]));
+                }
+            }
+        }
+
+        return dp[A.length()][B.length()];
+    }
+    public int calculateCoin(int [] arr, int n,  int sum){
+        int dp[][] = new int [sum+1][n+1];
+        for(int i=0;i<=n;i++)
+            dp[0][i] = 1;
+        for(int i=1;i<=sum;i++)
+            dp[i][0] = 0;
+        int i=0,j=0;
+        for(i=1;i<=sum;i++)
+            for(j=1;j<=n;j++) {
+                dp[i][j] = dp[i][j - 1];
+                if (arr[j - 1] <= i) {
+                    dp[i][j] += dp[i - arr[j - 1]][j];
+                }
+            }
+        return dp[sum][n];
+    }
     public static void main(String [] args){
         int maze[][] = { { 1, 0, 0, 0 },
                 { 1, 1, 0, 1 },
                 { 0, 1, 0, 0 },
                 { 1, 1, 1, 1 } };
         N = maze.length;
-        new DataStructurePractice().solveMaze(maze);
-
+        //new DataStructurePractice().solveMaze(maze);
+        String a = "axy";
+        String b = "baz";
+        filldpArray();
+        int [] arr = {1,2,3};
+        //System.out.println(new DataStructurePractice().lcsdp(a,b,a.length(),b.length()));
+        System.out.println(new DataStructurePractice().calculateCoin(arr,arr.length,4));
     }
 }
