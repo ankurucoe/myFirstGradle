@@ -319,6 +319,7 @@ public class DataStructurePractice {
         filldpArray();
         int [] arr = {1,2,3};
         //System.out.println(new DataStructurePractice().lcsdp(a,b,a.length(),b.length()));
-        System.out.println(new DataStructurePractice().calculateCoin(arr,arr.length,4));
+        //System.out.println(new DataStructurePractice().calculateCoin(arr,arr.length,4));
+        System.out.println(Integer.max(10,10));
     }
 }
