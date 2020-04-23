@@ -432,19 +432,127 @@ public class DataStructuresImplementations extends DataStructurePractice{
             System.out.println();
         }
     }
+    public int getMin(int [] coins, int n, int val){
+        if(val == 0){
+            return 0;
+        }
+        int res = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            if(coins[i]<=val){
+                int sub_res = getMin(coins, n, val-coins[i]);
+                if(sub_res != Integer.MAX_VALUE)
+                {
+                    res = Math.min(res, sub_res+1);
+                }
+            }
+        }
+        return res;
+    }
+
+    ArrayList<Integer> result;
+    int[] cuts;
+    int[][] parent;
+    public ArrayList<Integer> rodCut(int rod, ArrayList<Integer> scores) {
+        int n = scores.size() + 2;
+        cuts = new int[n];
+        cuts[0] = 0;
+        for (int i = 0; i < scores.size(); i++) {
+            cuts[i + 1] = scores.get(i);
+        }
+        cuts[n - 1] = rod;
+
+        long[][] dp = new long[n][n];
+        parent = new int[n][n];
+        for (int len = 1; len <= n; len++) {
+            for (int s = 0; s < n - len; s++) {
+                int e = s + len;
+                for (int k = s + 1; k < e; k++) {
+                    long sum = cuts[e] - cuts[s] + dp[s][k] + dp[k][e];
+                    if (dp[s][e] == 0 || sum < dp[s][e]) {
+                        dp[s][e] = sum;
+                        parent[s][e] = k;
+                    }
+                }
+            }
+        }
+
+        result = new ArrayList<>();
+        backTrack(0, n - 1);
+
+        return result;
+    }
+
+    private void backTrack(int s, int e) {
+        if (s + 1 >= e) {
+            return;
+        }
+
+        result.add(cuts[parent[s][e]]);
+        backTrack(s, parent[s][e]);
+        backTrack(parent[s][e], e);
+    }
+    static int cutRod(int price[], int n)
+    {
+        if (n <= 0)
+            return 0;
+        int min_val = Integer.MAX_VALUE;
 
 
+        for (int i = 0; i<n; i++)
+            min_val = Math.min(min_val,
+                    price[i] + cutRod(price, n-i-1));
+
+        return min_val;
+    }
+    public int longestValidParentheses(String s) {
+        // )()())
+        int maxlen = 0;
+        for(int i=0;i<s.length();i++){
+            for(int j=i+2;j<=s.length();j++){
+                System.out.println(s.substring(i,j));
+                if(isValid(s.substring(i,j))){
+                    maxlen = Math.max(maxlen, j-i);
+                }
+            }
+        }
+        return maxlen;
+    }
+    public boolean isValid(String s){
+        Stack<Character> stack = new Stack<Character>();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i) == '(')
+            {
+                stack.push('(');
+            }
+            else if(!stack.empty() && stack.peek() == '('){
+                stack.pop();
+            }
+            else {
+                return false;
+            }
+        }
+        return stack.empty();
+    }
     public static void main(String[] args) {
 
-        int a = 19;
+        //int a = 19;
 
         int maze[][] = { { 1, 0, 0, 0 },
                          { 1, 1, 0, 1 },
                          { 1, 1, 0, 0 },
                          { 0, 1, 1, 1 } };
         N = maze.length;
-        //new DataStructuresImplementations().magicNumber(3);
+        int [] coins = {25,10,5};
+        int val = 30;
+        ArrayList<Integer> ll = new ArrayList<>();
+        ll.add(1);
+        ll.add(2);
+        ll.add(5);
+        int a = 6;
+        //System.out.println(new DataStructuresImplementations().rodCut(a,ll));
         //new DataStructuresImplementations().magicNumber(7);
-
+        int [] arr = {1,2,5};
+        int n = 6;
+        System.out.println(new DataStructuresImplementations().longestValidParentheses(")()())"));
     }
 }
