@@ -1,5 +1,6 @@
 
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -533,6 +534,67 @@ public class DataStructuresImplementations extends DataStructurePractice{
         }
         return stack.empty();
     }
+    public int optimalGame(int [] arr, int n){
+        int [][] dp = new int [n][n];
+        int gap, i, j, x, y, z;
+
+        for(gap = 0;gap<n;gap++){
+            for(i=0,j=gap;j<n;i++,j++){
+
+                x = ((i+2) <= j) ? dp[i+2][j] : 0;
+                y = ((i+1) <= (j-1)) ? dp[i+1][j-1] : 0;
+                z = (i <= (j-2)) ? dp[i][j-2] : 0;
+
+                dp[i][j] = Math.max(arr[i] + Math.min(x,y), arr[j] + Math.min(y,z));
+
+            }
+        }
+        return dp[0][n-1];
+    }
+    public static void printSnake(int [][] arr){
+        for(int i=0;i<arr.length;i++){
+            if(i%2==0){
+                for(int j=0;j<arr[i].length;j++){
+                    System.out.print(arr[i][j]+" ");
+                }
+            }
+            else{
+                for(int j=arr[i].length-1;j>=0;j--){
+                    System.out.print(arr[i][j]+" ");
+                }
+            }
+            System.out.println();
+        }
+
+    }
+    public static void printBoundary(int [][] arr, int r, int c){
+        if(r==1){
+            for(int i=0;i<c;i++){
+                System.out.print(arr[0][i]+" ");
+            }
+        }
+        else if(c==1){
+            for(int i=0;i<r;i++){
+                System.out.print(arr[i][0]+" ");
+            }
+        }
+        else{
+            for(int i=0;i<c;i++){
+                System.out.print(arr[0][i]+" ");
+            }
+            for(int i=0;i<r;i++){
+                System.out.print(arr[i][c-1]+" ");
+            }
+            for(int i=c-2;i>=0;i--){
+                System.out.print(arr[r-1][i]+" ");
+            }
+            for(int i=r-2;i>=0;i--){
+                System.out.print(arr[i][0]+" ");
+            }
+
+
+        }
+    }
     public static void main(String[] args) {
 
         //int a = 19;
@@ -551,8 +613,16 @@ public class DataStructuresImplementations extends DataStructurePractice{
         int a = 6;
         //System.out.println(new DataStructuresImplementations().rodCut(a,ll));
         //new DataStructuresImplementations().magicNumber(7);
-        int [] arr = {1,2,5};
-        int n = 6;
-        System.out.println(new DataStructuresImplementations().longestValidParentheses(")()())"));
+        //int [] arr = {1,2,5};
+        //int n = 6;
+        //System.out.println(new DataStructuresImplementations().longestValidParentheses(")()())"));
+        int [] arr = {8,15,3,7};
+        //System.out.println(new DataStructuresImplementations().optimalGame(arr,arr.length));
+        int [][] ar = {{1,2,3},
+                       {4,5,6},
+                       {7,8,9}};
+        //printSnake(ar);
+        printBoundary(ar,ar.length,ar[0].length);
+
     }
 }
