@@ -1,10 +1,6 @@
 
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+
 
 class Interval
 {
@@ -595,34 +591,91 @@ public class DataStructuresImplementations extends DataStructurePractice{
 
         }
     }
+    public static void spiral(int [][] arr, int r, int c){
+        int top = 0, left = 0, bottom = r-1, right = c-1;
+        while(top<=bottom && left<=right){
+            for(int i=0;i<=right;i++){
+                System.out.print(arr[top][i]+" ");
+            }
+            top++;
+            for(int i=top;i<=bottom;i++){
+                System.out.print(arr[right][i]+" ");
+            }
+            right--;
+            if(top<=bottom){
+                for(int i=right;i>=left;i--){
+                    System.out.print(arr[bottom][i]+" ");
+                }
+                bottom--;
+            }
+            if(left<=right){
+                for(int i=bottom;i>=top;i--){
+                    System.out.print(arr[bottom][i]+" ");
+                }
+                left++;
+            }
+        }
+    }
+    public static long wins(ArrayList<Integer> teamA,ArrayList<Integer> teamB){
+        long res = 0;
+        int i=0,j=0;
+        while(i<teamA.size()){
+            int s = teamA.size();
+            for(j=0;j<teamB.size();j++){
+                if(teamA.get(i)>teamB.get(j)){
+                    res++;
+                    teamA.remove(i);
+                    teamB.remove(j);
+                    i=0;
+                    break;
+                }
+            }
+            if(teamA.size()==s){
+                i++;
+            }
+        }
+        return res;
+    }
+
+    static int ZeroSumSubarray(int [] arr, int n){
+        Set<Integer> s = new HashSet<>();
+        int prefix_sum = 0;
+        s.add(0);
+        for(int i=0;i<n;i++){
+            prefix_sum += arr[i];
+            if(s.contains(prefix_sum) == true){
+                System.out.println(prefix_sum);
+                return 1;
+            }
+            s.add(prefix_sum);
+        }
+        return 0;
+    }
+
+    static int maxLen(int [] arr, int n, int k){
+        HashMap<Integer,Integer> mp = new HashMap<>();
+        int sum = 0,result = 0;
+        for(int i=0;i<n;i++){
+            sum += arr[i];
+            if(sum == k){
+                result = i+1;
+            }
+            if(!mp.containsKey(sum)){
+                mp.put(sum,i);
+            }
+            if(mp.containsKey(sum-k)){
+                if(result < i-mp.get(sum-k)){
+                    result = i - mp.get(sum-k);
+                }
+            }
+
+        }
+        return result;
+    }
     public static void main(String[] args) {
-
-        //int a = 19;
-
-        int maze[][] = { { 1, 0, 0, 0 },
-                         { 1, 1, 0, 1 },
-                         { 1, 1, 0, 0 },
-                         { 0, 1, 1, 1 } };
-        N = maze.length;
-        int [] coins = {25,10,5};
-        int val = 30;
-        ArrayList<Integer> ll = new ArrayList<>();
-        ll.add(1);
-        ll.add(2);
-        ll.add(5);
-        int a = 6;
-        //System.out.println(new DataStructuresImplementations().rodCut(a,ll));
-        //new DataStructuresImplementations().magicNumber(7);
-        //int [] arr = {1,2,5};
-        //int n = 6;
-        //System.out.println(new DataStructuresImplementations().longestValidParentheses(")()())"));
-        int [] arr = {8,15,3,7};
-        //System.out.println(new DataStructuresImplementations().optimalGame(arr,arr.length));
-        int [][] ar = {{1,2,3},
-                       {4,5,6},
-                       {7,8,9}};
-        //printSnake(ar);
-        printBoundary(ar,ar.length,ar[0].length);
-
+        int[] arr = {10, 5, 2, 7, 1, 9};
+        int k = 15;
+        int n = arr.length;
+        System.out.println(maxLen(arr,n,k));
     }
 }
