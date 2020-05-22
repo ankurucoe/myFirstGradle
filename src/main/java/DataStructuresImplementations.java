@@ -687,7 +687,37 @@ public class DataStructuresImplementations extends DataStructurePractice{
         System.out.println(map.keySet()+" "+map.values());
         return maxlen;
     }
-    public static void main(String[] args) {
 
+    public static int findMaximumSsUnique(String inp){
+        int res = 0;
+        for(int i=0;i<inp.length();i++){
+            HashSet<Character> set = new HashSet<>();
+            for(int j=i;j<inp.length();j++){
+                if(!set.contains(inp.charAt(j))){
+                    set.add(inp.charAt(j));
+                }
+                else{
+                    res = Math.max(res,set.size());
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+    public static int longestStr(String inp){
+        int n = inp.length(), res = 0;
+        int [] vis = new int [265];
+        Arrays.fill(vis, -1);
+        int j =0;
+        for(int i=0;i<n;i++){
+            j = Math.max(j, vis[inp.charAt(i)]+1);
+            int maxEnd = i-j+1;
+            res = Math.max(maxEnd,res);
+            vis[inp.charAt(i)] = i;
+        }
+        return res;
+    }
+    public static void main(String[] args) {
+        System.out.println(longestStr("ankurankurankurma"));
     }
 }
