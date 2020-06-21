@@ -718,6 +718,15 @@ public class DataStructuresImplementations extends DataStructurePractice{
         return res;
     }
     public static void main(String[] args) {
-        System.out.println(longestStr("ankurankurankurma"));
+        //System.out.println(longestStr("ankurankurankurma"));
+        String ii = "";
+        String oo ="1";
+        oo = oo.toLowerCase();
+        char k = oo.charAt(0);
+        String pp = ii+ k;
+        System.out.println(pp);
+
+     
+
     }
 }
