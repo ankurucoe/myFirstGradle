@@ -64,11 +64,9 @@ public class App {
         int price[] = { 10, 4, 5, 90, 120, 80 };
         int n = price.length;
         int [] S = new int[n];
-        stockSpan(price,S,n);
-        //calculateSpan(price, n, S);
-//        for(int i:S){
-//            System.out.println(i);
-//        }
-        new App().previousGreaterElement(price, price.length);
+        //stockSpan(price,S,n);
+        //new App().previousGreaterElement(price, price.length);
+        double i = 1;
+        System.out.println(i/0);
     }
 }

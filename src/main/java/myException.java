@@ -11,7 +11,7 @@ public class myException extends Exception{
         try{
             throw new myException("my exception");
         }
-        catch(myException e){
+        catch(myException | ArithmeticException | NullPointerException e){
             System.out.println("exception caught");
             System.out.println(e.getMessage());
         }
